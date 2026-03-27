@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "claude-content-pipeline"
+version = "1.0.0"
+description = "MCP server for Claude Code content workflow — capture, queue, checkpoint"
+requires-python = ">=3.11"
+dependencies = ["mcp>=1.0.0"]
+
+[project.scripts]
+content-pipeline = "server:mcp.run"
