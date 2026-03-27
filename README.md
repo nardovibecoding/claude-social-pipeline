@@ -7,6 +7,8 @@
   [![Skills](https://img.shields.io/badge/SKILLS-2-FF6B00?style=for-the-badge)](https://github.com/nardovibecoding/claude-social-pipeline)
   [![Platform](https://img.shields.io/badge/PLATFORM-macOS%20%7C%20Linux-lightgrey?style=for-the-badge)](https://github.com/nardovibecoding/claude-social-pipeline)
   [![License](https://img.shields.io/badge/LICENSE-AGPL--3.0-red?style=for-the-badge)](LICENSE)
+
+  <img src="demo.gif" alt="Git log to tweet draft with voice check and humanizer" width="700">
 </div>
 
 ---
