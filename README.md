@@ -125,33 +125,36 @@ instead of recomputing on every request. Obvious in hindsight."
 
 ## Install
 
-### Plugin (recommended)
+One command. Takes 30 seconds.
 
 ```bash
-claude plugins install nardovibecoding/claude-social-pipeline
+curl -fsSL https://raw.githubusercontent.com/nardovibecoding/claude-social-pipeline/main/install.sh | bash
 ```
 
-### Manual
+Clones the repo, installs `mcp` package, registers MCP server in `~/.claude/settings.json`. Restart Claude Code.
+
+<details>
+<summary>Manual install</summary>
 
 ```bash
 git clone https://github.com/nardovibecoding/claude-social-pipeline.git
-
-# MCP server
 pip install mcp
 ```
 
-Add to `~/.claude/claude_desktop_config.json`:
+Add to `~/.claude/settings.json`:
 
 ```json
 {
   "mcpServers": {
-    "social-pipeline": {
-      "command": "python",
+    "content-pipeline": {
+      "command": "python3",
       "args": ["/path/to/claude-social-pipeline/mcp/server.py"]
     }
   }
 }
 ```
+
+</details>
 
 Copy skills:
 
