@@ -11,6 +11,8 @@
   <img src="demo.gif" alt="Git log to tweet draft with voice check and humanizer" width="700">
 </div>
 
+Genuine insights happen while you're deep in code. By the time you open Twitter, the moment's gone and you're staring at a blank box. This captures them in-context and drafts content without breaking flow.
+
 ---
 
 ```bash
