@@ -1,0 +1,25 @@
+Day 30 of vibecoding. No coding background.
+
+Open sourced 5 repos today. All built by describing what I wanted to Claude Code.
+
+#VibeCoding #ClaudeCode #OpenSource
+---
+Two of my favorites:
+
+skills-curation — a 6-model AI debate council. Six free LLMs argue across 3 rounds, cross-examine each other, deliver a consensus memo. $0 per decision. Forces disagreement before agreement.
+
+voice — talk to Claude Code, it talks back. Most voice tools only do input. This one speaks responses, auto-detects when you talk, and works hands-free.
+---
+social-pipeline — a content pipeline that watches coding sessions and captures tweet-worthy moments automatically. Draft queue, engagement tracking, humanizer that strips AI patterns from your writing.
+
+This thread started as a draft in it.
+---
+security-guard — 28 tools that block dangerous commands, scan for prompt injection, and catch secret leaks. All silent, zero tokens.
+
+telegram-bridge — built before Claude Channel existed. Still use it — each Telegram chat is a different project, something Claude Channel doesn't support yet.
+---
+30 days in. Still accelerating.
+
+Everything built by conversation. No syntax. No tutorials. Just @claudeai.
+
+Come along for the ride. Sharing everything as I go.

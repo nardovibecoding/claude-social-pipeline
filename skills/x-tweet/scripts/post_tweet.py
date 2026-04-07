@@ -18,7 +18,7 @@ from typing import Optional
 import tweepy
 from dotenv import load_dotenv
 
-sys.path.insert(0, str(Path(__file__).parents[2] / "mcp"))
+sys.path.insert(0, str(Path(__file__).parents[3] / "mcp"))
 from lib import tweet_log
 
 # Load env from DOTENV_PATH if set; otherwise rely on env vars already in environment
@@ -111,20 +111,66 @@ def send_tg_alert(tweet_data: dict) -> None:
     )
 
 
+def post_thread(
+    tweets: list[str],
+    media_path: Optional[str] = None,
+) -> list[dict]:
+    """Post a thread of tweets. First tweet gets optional media. Returns list of tweet data."""
+    results = []
+    reply_to = None
+
+    for i, text in enumerate(tweets):
+        media = media_path if i == 0 else None
+        result = post_tweet(text, reply_to=reply_to, media_path=media)
+        results.append(result)
+        reply_to = str(result["id"])
+        print(f"  [{i+1}/{len(tweets)}] {result['url']}")
+
+        # Small delay between posts to avoid rate limiting
+        if i < len(tweets) - 1:
+            import time
+            time.sleep(2)
+
+    return results
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Post tweet via X API")
-    parser.add_argument("text", help="Tweet text")
+    parser.add_argument("text", nargs="?", help="Tweet text (single tweet mode)")
     parser.add_argument("--reply-to", help="Tweet ID to reply to")
     parser.add_argument("--media", help="Path to image to attach")
     parser.add_argument("--no-alert", action="store_true", help="Skip TG notification")
+    parser.add_argument("--thread", help="Path to thread file (one tweet per section, separated by ---)")
     args = parser.parse_args()
 
-    result = post_tweet(args.text, args.reply_to, args.media)
-    print(json.dumps(result, indent=2))
+    if args.thread:
+        # Thread mode: read file, split on ---, post chain
+        thread_path = Path(args.thread)
+        if not thread_path.exists():
+            print(f"Thread file not found: {args.thread}")
+            sys.exit(1)
+        content = thread_path.read_text().strip()
+        tweets = [t.strip() for t in content.split("---") if t.strip()]
+        if not tweets:
+            print("No tweets found in thread file")
+            sys.exit(1)
 
-    if not args.no_alert:
-        send_tg_alert(result)
-        print("TG alert sent.")
+        print(f"Posting thread ({len(tweets)} tweets)...")
+        results = post_thread(tweets, media_path=args.media)
+        print(json.dumps(results, indent=2))
+
+        if not args.no_alert:
+            send_tg_alert(results[0])
+            print("TG alert sent.")
+    else:
+        if not args.text:
+            parser.error("text is required in single tweet mode")
+        result = post_tweet(args.text, args.reply_to, args.media)
+        print(json.dumps(result, indent=2))
+
+        if not args.no_alert:
+            send_tg_alert(result)
+            print("TG alert sent.")
 
 
 if __name__ == "__main__":
